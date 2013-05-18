@@ -25,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$transaction->success)
         die(); // request failed or transaction data mismatch
 
+
         
-    // get UUID of transaction
+// get UUID of transaction
     $uuid = $transaction->receipt['info']['uuid'];
     //check that transaction is already processed
     $already_exists = mysql_query("SELECT COUNT(*) FROM transactions WHERE uuid='$uuid' AND status='ok'");
@@ -69,5 +70,15 @@ if ($uuid) {
          * Display success message to user
          */
     }
+} else {
+    /*
+     * here is your checkout button and payment form
+     */
+    // encode your data here
+    $data = json_encode(array('account_id' => 'buyer account id', 'good_id' => 'your good ID'));
+    // initialize monet2btc class
+    $m2btc = new money2btc('URI of your page', $data, "Buy Wonderful good", 10.10/* for ten bucks and ten cents */, 'your bitcoin address here');
+    // print form with buy button
+    print $m2btc->get_form();
 }
 ?>
