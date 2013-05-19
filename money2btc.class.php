@@ -70,18 +70,18 @@ class money2btc {
                 </form>';
     }
 /**
- * Checks the transaction and returns it status, must be used to verify POST IPN response or user POST response
+ * Checks the transaction and returns it status, must be used to verify POST IPN request
  * @param string Encoded data of post request from money2btc.com
  * @param string Request key from money2btc.com
  * @return \stdClass Class with two objects, response->error - error text and response->success with request result
- * response->receipt->data->status
+ * response->receipt['data']['status']
  * Statuses can be:
  * null - bootstapping
  * verified_sys - system verified, ready to send to payment gateway
  * pending_gw - pending on payment gateway (may be security check
  * failed_gw - failed on payment gateway
  * ok_gw - okay on payment gateway
- * failed_bc = failed in bitcoin network
+ * failed_bc - failed in bitcoin network
  * pending_bc - pending bitcoin network
  * ok - comepleted
  */
